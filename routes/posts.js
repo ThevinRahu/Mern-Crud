@@ -30,6 +30,19 @@ router.get('/posts',(req,res)=>{
         });
     });
 });
+//get specific
+router.get('/posts/:id',(req,res) => {
+    let postid = req.params.id;
+    Posts.findById(postid, (err,post) => {
+        if(err){
+        return res.status(400).json({success:false, err});
+        }
+        return res.status(200).json({
+            success:true,
+            post
+        });
+    });
+});
 //update posts
 router.put('/post/update/:id',(req,res)=>{
     Posts.findByIdAndUpdate(
