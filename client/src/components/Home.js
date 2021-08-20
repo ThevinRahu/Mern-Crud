@@ -6,6 +6,8 @@ export default class Home extends Component {
     super(props);
     this.state = {
       posts: [],
+      sum:[],
+      
     };
   }
   componentDidMount() {
@@ -14,12 +16,21 @@ export default class Home extends Component {
   retrievePosts() {
     axios.get("/posts").then((res) => {
       if (res.data.success) {
+        
         this.setState({
           posts: res.data.existingPosts,
+          postsCount:res.data.postCount,
+          sum: res.data.sum,
+          
         });
         console.log(this.state.posts);
+        console.log(this.state.postsCount);
+        console.log(this.state.sum);
+       
+        
       }
     });
+  
   }
 
   onDelete = (id) => {
@@ -45,6 +56,7 @@ export default class Home extends Component {
       }
     });
   };
+  
   render() {
     return (
       <div className="container">
@@ -65,11 +77,13 @@ export default class Home extends Component {
               <th scope="col">Topic</th>
               <th scope="col">Description</th>
               <th scope="col">Post Category</th>
+              <th scope="col">Price</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             {this.state.posts.map((posts, index) => (
+              
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>
@@ -82,6 +96,7 @@ export default class Home extends Component {
                 </td>
                 <td>{posts.description}</td>
                 <td>{posts.postCategory}</td>
+                <td>{posts.price}</td>
                 <td>
                   <a className="btn btn-warning" href={`/edit/${posts._id}`}>
                     <i className="fas fa-edit"></i>&nbsp;Edit
@@ -97,8 +112,16 @@ export default class Home extends Component {
                 </td>
               </tr>
             ))}
+           
           </tbody>
         </table>
+        <p>Topics Count - {this.state.postsCount} </p>
+        {this.state.sum.map((sum, index) => (
+          <p>Price Sum- {sum.sum}</p>
+        ))}
+         {this.state.sum.map((sum, index) => (
+          <p>Price Average- {sum.avg}</p>
+        ))}
         <button className="btn btn-success">
           <a href="/add" style={{ textDecoration: "none", color: "white" }}>
             Create New Post

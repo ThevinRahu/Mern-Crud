@@ -8,6 +8,7 @@ export default class CreatePost extends Component {
       topic: "",
       description: "",
       postCategory: "",
+      price:""
     };
   }
 
@@ -22,12 +23,13 @@ export default class CreatePost extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const { topic, description, postCategory } = this.state;
+    const { topic, description, postCategory, price } = this.state;
 
     const data = {
       topic: topic,
       description: description,
       postCategory: postCategory,
+      price:price
     };
 
     console.log(data);
@@ -37,6 +39,7 @@ export default class CreatePost extends Component {
           topic: "",
           description: "",
           postCategory: "",
+          price:""
         });
       }
     });
@@ -79,6 +82,18 @@ export default class CreatePost extends Component {
               name="postCategory"
               placeholder="Post Category"
               value={this.state.postCategory}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className="form-group h3 mb-3 font-weight-normal">
+            <label for="price">Price</label>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              name="price"
+              placeholder="Price"
+              value={this.state.price}
               onChange={this.handleInputChange}
             />
           </div>

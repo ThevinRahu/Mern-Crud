@@ -22,7 +22,7 @@ export default class PostDetails extends Component {
     });
   }
   render() {
-    const { topic, description, postCategory } = this.state.post;
+    const { topic, description, postCategory, price } = this.state.post;
     return (
       <div style={{ marginTope: "20px" }}>
         <h4>{topic}</h4>
@@ -32,6 +32,9 @@ export default class PostDetails extends Component {
 
           <dt className="col-sm-3">Post Category</dt>
           <dd className="col-sm-9">{postCategory}</dd>
+
+          <dt className="col-sm-3">Price</dt>
+          <dd className="col-sm-9">{price}</dd>
         </dl>
       </div>
     );

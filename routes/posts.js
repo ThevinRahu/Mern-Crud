@@ -14,21 +14,42 @@ router.post("/post/save/", (req, res) => {
       success: "Posts saved succesfully",
     });
   });
+
 });
 //get post
 router.get("/posts", (req, res) => {
+  
   Posts.find().exec((err, posts) => {
-    if (err) {
-      return res.status(400).json({
-        error: err,
-      });
-    }
-    return res.status(200).json({
-      success: true,
-      existingPosts: posts,
+    var count = posts.length;
+    Posts.aggregate([
+      {
+        $group: {
+          _id: null,
+          sum: {
+            $sum: "$price"
+          },
+          avg: {
+            $avg: "$price"
+          }
+         
+        }
+        
+      } 
+    ]).exec((err, sum)=>{
+      return res.status(200).json({
+        success: true,
+        existingPosts: posts,
+        postCount:count,
+        sum: sum,
+        
+    })
+    
+      
     });
   });
+ 
 });
+
 //get specific
 router.get("/posts/:id", (req, res) => {
   let postid = req.params.id;

@@ -8,6 +8,7 @@ export default class EditPost extends Component {
       topic: "",
       description: "",
       postCategory: "",
+      price:""
     };
   }
   handleInputChange = (e) => {
@@ -26,6 +27,7 @@ export default class EditPost extends Component {
           topic: res.data.post.topic,
           description: res.data.post.description,
           postCategory: res.data.post.postCategory,
+          price: res.data.post.price,
         });
         console.log(this.state.post);
       }
@@ -34,12 +36,13 @@ export default class EditPost extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const id = this.props.match.params.id;
-    const { topic, description, postCategory } = this.state;
+    const { topic, description, postCategory, price } = this.state;
 
     const data = {
       topic: topic,
       description: description,
       postCategory: postCategory,
+      price:price,
     };
 
     console.log(data);
@@ -50,6 +53,7 @@ export default class EditPost extends Component {
           topic: "",
           description: "",
           postCategory: "",
+          price:""
         });
       }
     });
@@ -92,6 +96,18 @@ export default class EditPost extends Component {
               name="postCategory"
               placeholder="Post Category"
               value={this.state.postCategory}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div className="form-group h3 mb-3 font-weight-normal">
+            <label for="postCategory">Price</label>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              name="price"
+              placeholder="Price"
+              value={this.state.price}
               onChange={this.handleInputChange}
             />
           </div>

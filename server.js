@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 const postRoutes = require("./routes/posts"); // import routes
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json()); //app middleware
 app.use(cors()); //app middleware
 app.use(postRoutes); //route middleware
